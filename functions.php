@@ -28,6 +28,11 @@ add_action('wp_enqueue_scripts','university_files');
 
 // this function loads the title for the browser tabs
 function university_features() {
+  // specific function to load menu navigation into wordpress admin area
+  // 1st agr we give name to, 2nd arg is the text that will shoe up in the WP admin area
+    // register_nav_menu('headerMenuLocation', 'Header Menu Location');
+    // register_nav_menu('footerLocationOne', 'Footer Location One');
+    // register_nav_menu('footerLocationTwo', 'Footer Location Two');
   // specific function - arg title-tag
   add_theme_support('title-tag');
 }

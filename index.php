@@ -5,10 +5,10 @@
 
 
 
-<?php
+<!-- <?php
   the_title();
   get_the_title();
-?>
+?> -->
 
 
 
