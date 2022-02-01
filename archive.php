@@ -1,3 +1,5 @@
+<!-- this page controls the archives pages for blog posts -->
+
 <?php 
 get_header(); ?> 
 
@@ -6,10 +8,10 @@ get_header(); ?>
     <!-- notice php function to load photo uri -->
       <div class="page-banner__bg-image" style="background-image: url(<?php echo get_theme_file_uri('/images/ocean.jpg') ?>)"></div>
       <div class="page-banner__content container container--narrow">
-        <!-- php the_title function to dynamically pull in page info we want -->
-        <h1 class="page-banner__title">Welcome to our blog!</h1>
+        <!-- php function to dynamically pull in info we want -->
+        <h1 class="page-banner__title"><?php the_archive_title(); ?></h1>
         <div class="page-banner__intro">
-          <p>Keep up with the latest news.</p>
+          <p><?php the_archive_description(); ?></p>  
         </div>
       </div>
     </div>
@@ -41,37 +43,3 @@ get_header(); ?>
 
 <?php get_footer();
 ?>
-
-
-
-
-
-
-
-
-<!-- ----------------------------------------------------------------------------------------------- -->
-
-<!-- FUNCTION Example -->
-<!-- <?php 
-function greet($name, $color) {
-  echo "<p>My name is $name, my fav color is $color.</p>";
-}
-greet("John", "blue");
-greet("Jane", "green");
-?> -->
-
-
-<!-- ARRAY Example-->
-<!-- <?php
-  $names = array("Brad", "John", "Jane", "Tom");
-
-  $count = 0;
-while($count < count($names)) {
-  echo "<li>Hi, my name is $names[$count]</li>";
-  $count++;
-}
-?> -->
-
-
-
-
