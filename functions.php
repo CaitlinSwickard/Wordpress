@@ -38,3 +38,5 @@ function university_features() {
 }
 // add action specific after setup theme, then name of function 
 add_action('after_setup_theme', 'university_features');
+
+
