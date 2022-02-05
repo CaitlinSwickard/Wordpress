@@ -17,10 +17,24 @@
 <div class="full-width-split__one">
   <div class="full-width-split__inner">
     <h2 class="headline headline--small-plus t-center">Upcoming Events</h2>
+
+    <!-- this is our custom query -->
       <?php  
+        $today = date('Ymd');
         $homepageEvents = new WP_Query(array(
-          'posts_per_page' => 2,
+          'posts_per_page' => -1,
           'post_type' => 'event',
+          'meta_key' => 'event_date',
+          'orderby' => 'meta_value_num', 
+          'order' => 'ASC',
+          'meta_query' => array(
+            array(
+              'key' => 'event_date', // this array allows for the check of the events to only display events that are greater than the current date
+              'compare' => '>=',
+              'value' => $today,
+              'type' => 'numeric'
+            )
+          )
         ));
 
         while($homepageEvents->have_posts()) {
