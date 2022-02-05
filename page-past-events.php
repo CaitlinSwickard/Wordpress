@@ -7,9 +7,9 @@ get_header();?>
       <div class="page-banner__bg-image" style="background-image: url(<?php echo get_theme_file_uri('/images/ocean.jpg') ?>)"></div>
       <div class="page-banner__content container container--narrow">
         <!-- php function to dynamically pull in info we want -->
-        <h1 class="page-banner__title">All Events</h1>
+        <h1 class="page-banner__title">Past Events</h1>
         <div class="page-banner__intro">
-          <p>See what's going on.</p>
+          <p>A recap of past events.</p>
         </div>
       </div>
     </div>
@@ -18,8 +18,27 @@ get_header();?>
 <!-- container to hold blog posts -->
 <div class="container container--narrow page-section">
 <?php
-while (have_posts()) {
-    the_post();?>
+// custom query for grabbing past events for the past event page
+$today = date('Ymd');
+$pastEvents = new WP_Query(array(
+    'paged' => get_query_var('paged', 1),
+    'post_type' => 'event',
+    'meta_key' => 'event_date',
+    'orderby' => 'meta_value_num',
+    'order' => 'ASC',
+    'meta_query' => array(
+        array(
+            'key' => 'event_date', // this array allows for the check of the events to only display events that are less than the current date
+            'compare' => '<',
+            'value' => $today,
+            'type' => 'numeric',
+        ),
+    ),
+));
+
+// update loop to have new $pastEvents variable and look inside it
+while ($pastEvents->have_posts()) {
+    $pastEvents->the_post();?>
       <div class="event-summary">
           <a class="event-summary__date t-center" href="#">
             <!-- notice php code for custom field created to display the date -->
@@ -36,10 +55,11 @@ $eventDate = new DateTime(get_field('event_date'));
       </div>
 
   <?php }
-echo paginate_links();
+  // update to this pagination function to make it customizable from our archive page that we custom created
+echo paginate_links(array(
+  'total' => $pastEvents->max_num_pages
+));
 ?>
-<hr class="section-break">
-<p>Looking for a past event? <a href="<?php echo site_url('/past-events') ?> ">Check out our archive page</a>.</p>
 </div>
 
 
