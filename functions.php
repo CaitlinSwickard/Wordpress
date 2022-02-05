@@ -40,3 +40,24 @@ function university_features() {
 add_action('after_setup_theme', 'university_features');
 
 
+// this function manipulates a default query
+// this code only runs for the EVENT archives page
+function university_adjust_queries($query) {
+  if(!is_admin() AND is_post_type_archive('event') AND $query->is_main_query()) {
+    $today = date('Ymd');
+    
+    $query->set('meta_key', 'event_date');
+    $query->set('orderby', 'meta_value_num');
+    $query->set('order', 'ASC');
+    $query->set('meta_query', array(
+      array(
+        'key' => 'event_date', // this array allows for the check of the events to only display events that are greater than the current date
+        'compare' => '>=',
+        'value' => $today,
+        'type' => 'numeric'
+        )
+      ));
+  }
+}
+// this add action function takes 2 args, first one is what you want it to do, second is the name of the function
+add_action('pre_get_posts', 'university_adjust_queries');
