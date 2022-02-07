@@ -1,4 +1,4 @@
-<!-- this is the custom page that powers EVENT pages -->
+<!-- This is the custom page that powers PROGRAM pages -->
 
 <?php
   get_header();
@@ -22,8 +22,8 @@
       <div class="metabox metabox--position-up metabox--with-home-link">
         <p>
         <!-- notice updated archive link function for the events page custom type we created -->
-          <a class="metabox__blog-home-link" href="<?php echo get_post_type_archive_link('event'); ?>">
-          <i class="fa fa-home" aria-hidden="true"></i> Events Home</a>
+          <a class="metabox__blog-home-link" href="<?php echo get_post_type_archive_link('program'); ?>">
+          <i class="fa fa-home" aria-hidden="true"></i> All Programs</a>
           <span class="metabox__main"><?php the_title(); ?></span>
         </p>
       </div>

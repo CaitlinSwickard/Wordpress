@@ -29,10 +29,6 @@ add_action('wp_enqueue_scripts','university_files');
 // this function loads the title for the browser tabs
 function university_features() {
   // specific function to load menu navigation into wordpress admin area
-  // 1st agr we give name to, 2nd arg is the text that will shoe up in the WP admin area
-    // register_nav_menu('headerMenuLocation', 'Header Menu Location');
-    // register_nav_menu('footerLocationOne', 'Footer Location One');
-    // register_nav_menu('footerLocationTwo', 'Footer Location Two');
   // specific function - arg title-tag
   add_theme_support('title-tag');
 }
@@ -41,11 +37,21 @@ add_action('after_setup_theme', 'university_features');
 
 
 // this function manipulates a default query
-// this code only runs for the EVENT archives page
+// this code only runs for the archives pages for custom queries
 function university_adjust_queries($query) {
+
+  // this if statement powers the PROGRAMS page query 
+  if(!is_admin() AND is_post_type_archive('program') AND is_main_query()) {
+    $query->set('orderby', 'title'); //setting order by title
+    $query->set('order', 'ASC'); //setting order in Alphabetical
+    $query->set('post_per_page', -1); //allows post set up to infinity
+  }
+
+
+  // this if statement powers the EVENT page query
   if(!is_admin() AND is_post_type_archive('event') AND $query->is_main_query()) {
     $today = date('Ymd');
-    
+
     $query->set('meta_key', 'event_date');
     $query->set('orderby', 'meta_value_num');
     $query->set('order', 'ASC');

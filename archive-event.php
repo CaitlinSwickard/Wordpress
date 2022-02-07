@@ -1,3 +1,5 @@
+<!-- this page powers the all events page archive -->
+
 <?php
 get_header();?>
 
