@@ -1,6 +1,3 @@
-<!-- This file is a behind the scene file -->
-
-
 <?php 
 
 function university_files() {
