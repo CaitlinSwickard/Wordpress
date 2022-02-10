@@ -28,9 +28,15 @@ function university_features() {
   // specific function to load menu navigation into wordpress admin area
   // specific function - arg title-tag
   add_theme_support('title-tag');
+  // this support is to add the ability to add images from the admin area
+  add_theme_support('post-thumbnails');
+  // this is creating custom image sizes for us to use 
+  add_image_size('professorLandscape', 400, 260, true);
+  add_image_size('')
 }
 // add action specific after setup theme, then name of function 
 add_action('after_setup_theme', 'university_features');
+
 
 
 // this function manipulates a default query

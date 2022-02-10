@@ -29,41 +29,47 @@ while (have_posts()) {
       </div>
 
       <div class="generic-content"><?php the_content();?></div>
-     
+
 
       <?php
-        // this custom query build the relationship for programs and professor who teach that program/event
-        $relatedProfessors = new WP_Query(array(
-          'posts_per_page' => -1,
-          'post_type' => 'professor',
-          'orderby' => 'title',
-          'order' => 'ASC',
-          'meta_query' => array(
-              array( //this array is checking the array of the related_programs contains the ID # of the current program post - then post to page
-                  'key' => 'related_programs',
-                  'compare' => 'LIKE',
-                  'value' => '"' . get_the_ID() . '"', //the quotes are serializing the data coming in
-              ),
-          ),
-      ));
-  
-      if ($relatedProfessors->have_posts()) {
-          echo '<hr class="section-break">';
-          echo '<h2 class="headline headline--medium">' . get_the_title() . ' Professors</h2>';
-  
-          while ($relatedProfessors->have_posts()) {
-              $relatedProfessors->the_post();?>
-              <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
-              
+// this custom query build the relationship for programs and professor who teach that program/event
+    $relatedProfessors = new WP_Query(array(
+        'posts_per_page' => -1,
+        'post_type' => 'professor',
+        'orderby' => 'title',
+        'order' => 'ASC',
+        'meta_query' => array(
+            array( //this array is checking the array of the related_programs contains the ID # of the current program post - then post to page
+                'key' => 'related_programs',
+                'compare' => 'LIKE',
+                'value' => '"' . get_the_ID() . '"', //the quotes are serializing the data coming in
+            ),
+        ),
+    ));
+
+    if ($relatedProfessors->have_posts()) {
+        echo '<hr class="section-break">';
+        echo '<h2 class="headline headline--medium">' . get_the_title() . ' Professors</h2>';
+
+        echo '<ul class="professor-cards">';
+        while ($relatedProfessors->have_posts()) {
+            $relatedProfessors->the_post();?>
+              <li class="professor-card__list-item">
+                <a class="professor-card" href="<?php the_permalink();?>">
+                  <!-- pulling in url for photo -->
+                  <img class="professor-card__image" src="<?php the_post_thumbnail_url()?>">
+                  <span class="professor-card__name"><?php the_title();?></span>
+                </a></li>
+
           <?php }
-      }
-      // this WP function resets the global post object back to default so we can run multiple custom queries on a page
-      wp_reset_postdata();
+        echo '</ul>';
+    }
+    // this WP function resets the global post object back to default so we can run multiple custom queries on a page
+    wp_reset_postdata();
 
-
-      // this is the custom query for upcoming event related to a program
-      $today = date('Ymd');
-      $homepageEvents = new WP_Query(array(
+    // this is the custom query for upcoming event related to a program
+    $today = date('Ymd');
+    $homepageEvents = new WP_Query(array(
         'posts_per_page' => 2,
         'post_type' => 'event',
         'meta_key' => 'event_date',
@@ -94,7 +100,7 @@ while (have_posts()) {
             <a class="event-summary__date t-center" href="#">
             <!-- notice php code for custom field created to display the date -->
               <span class="event-summary__month"><?php
-            $eventDate = new DateTime(get_field('event_date'));
+$eventDate = new DateTime(get_field('event_date'));
             echo $eventDate->format('M')
             ?></span>
                <span class="event-summary__day"><?php echo $eventDate->format('d') ?></span>
