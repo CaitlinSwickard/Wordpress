@@ -19,12 +19,14 @@
     </div>
 
     <div class="container container--narrow page-section">
+
       <!-- added the thumbnail function to display here -->
       <div class="generic-content">
         <div class="row group">
 
           <div class="one-third">
-            <?php the_post_thumbnail(); ?>
+          <!-- to load custom thumbnail just add to function -->
+            <?php the_post_thumbnail('professorPortrait'); ?>
           </div>
 
           <div class="two-thirds">
