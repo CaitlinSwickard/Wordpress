@@ -5,19 +5,11 @@
 get_header();
 
   while(have_posts()) {
-    the_post(); ?>
+    the_post(); 
+    // customizing the pageBanner function for flexibility
+    pageBanner();
+    ?>
   
-  <div class="page-banner">
-    <!-- notice php function to load photo uri -->
-      <div class="page-banner__bg-image" style="background-image: url(<?php echo get_theme_file_uri('/images/ocean.jpg') ?>)"></div>
-      <div class="page-banner__content container container--narrow">
-        <!-- php the_title function to dynamically pull in page info we want -->
-        <h1 class="page-banner__title"><?php the_title(); ?></h1>
-        <div class="page-banner__intro">
-          <p>Dont forget to replace me later.</p>
-        </div>
-      </div>
-    </div>
 
     <div class="container container--narrow page-section">
 

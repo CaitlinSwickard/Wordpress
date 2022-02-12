@@ -1,5 +1,39 @@
 <?php
 
+// this is a reusable function that controls the title, subtitle and pic for the page banners throughout
+function pageBanner($args = NULL)
+{
+    // checking for custom title, if none load title from WP page
+    if (!$args['title']) {
+        $args['title'] = get_the_title();
+    }
+    // checking for custom subtitle, if none load WP subtitle
+    if (!$args['subtitle']) {
+        $args['subtitle'] = get_field('page_banner_subtitle');
+    }
+    // checking for custom photo for banner, if none load ocean image
+    if (!$args['photo']) {
+      if (get_field('page_banner_background_image') AND !is_archive() AND !is_home() ) {
+        $args['photo'] = get_field('page_banner_background_image')['sizes']['pageBanner'];
+      } else {
+        $args['photo'] = get_theme_file_uri('/images/ocean.jpg');
+      }
+    }
+    ?>
+  <div class="page-banner">
+      <!-- notice php function to load photo uri -->
+      <div class="page-banner__bg-image" style="background-image: url(<?php echo $args['photo']; ?>)"></div>
+      <div class="page-banner__content container container--narrow">
+        <!-- php the_title function to dynamically pull in page info we want -->
+        <h1 class="page-banner__title"><?php echo $args['title']; ?></h1>
+        <div class="page-banner__intro">
+          <p><?php echo $args['subtitle']; ?></p>
+        </div>
+      </div>
+    </div>
+  <?php
+}
+
 function university_files()
 {
 
