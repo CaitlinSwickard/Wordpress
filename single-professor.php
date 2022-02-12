@@ -8,12 +8,12 @@
 
     <div class="page-banner">
       <!-- notice php function to load photo uri -->
-      <div class="page-banner__bg-image" style="background-image: url(<?php echo get_theme_file_uri('/images/ocean.jpg') ?>)"></div>
+      <div class="page-banner__bg-image" style="background-image: url(<?php $pageBannerImage = get_field('page_banner_background_image'); echo $pageBannerImage['sizes']['pageBanner'] ?>)"></div>
       <div class="page-banner__content container container--narrow">
         <!-- php the_title function to dynamically pull in page info we want -->
         <h1 class="page-banner__title"><?php the_title(); ?></h1>
         <div class="page-banner__intro">
-          <p>Dont forget to replace me later.</p>
+          <p><?php the_field('page_banner_subtitle') ?></p>
         </div>
       </div>
     </div>

@@ -35,6 +35,7 @@ function university_features()
     // instead we use a plugin
     add_image_size('professorLandscape', 400, 260, true);
     add_image_size('professorPortrait', 480, 650, true);
+    add_image_size('pageBanner', 1500, 350, true);
 }
 // add action specific after setup theme, then name of function
 add_action('after_setup_theme', 'university_features');
